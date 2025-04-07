@@ -10,6 +10,25 @@ import java.util.List;
 @RequestMapping("/api/v1/schools")
 @RequiredArgsConstructor
 public class SchoolController {
+    private final SchoolService schoolService;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(
+            @RequestBody School school
+    ) {
+        schoolService.saveSchool(school);
+    }
 
+    @GetMapping
+    public ResponseEntity<List<School>> findAllSchools() {
+        return ResponseEntity.ok(schoolService.findAllSchools());
+    }
+
+    @GetMapping("/with-students/{school-id}")
+    public ResponseEntity<FullSchoolResponse> findSchoolsWithStudents(
+            @PathVariable("school-id") Integer schoolId
+    ) {
+        return ResponseEntity.ok(schoolService.findSchoolsWithStudents(schoolId));
+    }
 
 }
