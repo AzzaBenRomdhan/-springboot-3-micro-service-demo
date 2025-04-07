@@ -1,0 +1,23 @@
+eureka:
+  client:
+    register-with-eureka: true
+server:
+  port: 8222
+spring:
+  application:
+    name: gateway-service  # Nom cohérent avec suffixe
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true  # Important
+      routes:
+        - id: student-service
+          uri: lb://students-service  # Utilisation du load balancer
+          predicates:
+            - Path=/api/v1/students/**
+        - id: school-service
+          uri: lb://schools-service
+          predicates:
+            - Path=/api/v1/schools/**
