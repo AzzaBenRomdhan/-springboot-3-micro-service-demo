@@ -2,13 +2,9 @@
 
 This project demonstrates a **Microservices Architecture** built using **Spring Boot** and **Spring Cloud**. It includes service discovery, centralized configuration, intelligent routing, inter-service communication, distributed tracing, and PostgreSQL as the persistent layer.
 
----
-
 ## 🏗️ Project Architecture
 
 ![Architecture Diagram](screenshots/diagram.png)
-
----
 
 ## 📦 Modules Overview
 
@@ -33,14 +29,11 @@ This project demonstrates a **Microservices Architecture** built using **Spring 
 - Manages school-related operations.
 - Uses **OpenFeign** to fetch related student data from `student-service`.
 
----
 
 ## 🔁 Inter-Service Communication
 
 - Handled via **OpenFeign**, a declarative REST client.
 - Example use case: `school-service` fetches the list of students associated with a specific school from `student-service`.
-
----
 
 ## 🚀 How to Run the Project
 
@@ -64,8 +57,6 @@ This project demonstrates a **Microservices Architecture** built using **Spring 
      
 > Each service will register with Eureka and fetch its configuration from the config server.
 
----
-
 
 ## 📈 Distributed Tracing with Zipkin
 
@@ -75,8 +66,6 @@ This project demonstrates a **Microservices Architecture** built using **Spring 
 
 Access the Zipkin dashboard at:  
 👉 `http://localhost:9411`
-
----
 
 ## 🛠️ Tech Stack
 
@@ -95,4 +84,5 @@ Access the Zipkin dashboard at:
 
 **Azza Ben Romdhan**  
 💼 Software Engineer  
+📧 benromdhan.azza@gmail.com  
 🔗 [LinkedIn Profile](https://www.linkedin.com/in/azza-ben-romdhan-668987177/)
