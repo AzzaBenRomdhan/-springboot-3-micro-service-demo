@@ -6,6 +6,9 @@ This project demonstrates a **Microservices Architecture** built using **Spring 
 
 ![Architecture Diagram](screenshots/diagram.png)
 
+## 📂 Project Structure
+![Project Directory Structure](screenshots/structure.png)
+
 ## 📦 Modules Overview
 
 ### 1. `config-server`
@@ -67,6 +70,20 @@ This project demonstrates a **Microservices Architecture** built using **Spring 
 Access the Zipkin dashboard at:  
 👉 `http://localhost:9411`
 
+## 🖥 Eureka Service Discovery
+
+Visualisation des microservices enregistrés via le dashboard Eureka :
+
+![Interface Eureka](screenshots/eureka.png)
+
+**Accès** : http://localhost:8761
+
+**Fonctionnalités clés** :
+- Liste des instances enregistrées
+- Statut UP/DOWN en temps réel
+- Métadonnées des services
+- Métriques système (mémoire, uptime)
+  
 ## 🛠️ Tech Stack
 
 | Technology        | Description                                |
