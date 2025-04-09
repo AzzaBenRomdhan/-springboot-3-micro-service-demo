@@ -1,20 +1,20 @@
 eureka:
   client:
-    register-with-eureka: true
+    register-with-eureka: false
 server:
   port: 8222
 spring:
   application:
-    name: gateway-service  # Nom cohérent avec suffixe
+    name: gateway-service
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true  # Important
+          lower-case-service-id: true
       routes:
         - id: student-service
-          uri: lb://students-service  # Utilisation du load balancer
+          uri: lb://students-service
           predicates:
             - Path=/api/v1/students/**
         - id: school-service
