@@ -1,162 +1,98 @@
 # 🧩 Microservices Architecture with Spring Boot
 
-Ce projet met en œuvre une architecture **microservices** avec **Spring Boot**, incluant les composants suivants : Eureka Server, Config Server, API Gateway, services métier (School et Student), OpenFeign pour la communication inter-services, Zipkin pour la traçabilité, et PostgreSQL comme base de données.
+This project demonstrates a **Microservices Architecture** built using **Spring Boot** and **Spring Cloud**. It includes service discovery, centralized configuration, intelligent routing, inter-service communication, distributed tracing, and PostgreSQL as the persistent layer.
 
 ---
 
-## 🏗️ Architecture du projet
+## 🏗️ Project Architecture
 
-```
-                        +-----------------------+
-                        |     Config Server     |
-                        |   (Spring Cloud)      |
-                        +----------+------------+
-                                   |
-                        +----------v------------+
-                        |     Eureka Server     |
-                        | (Service Discovery)   |
-                        +----------+------------+
-                                   |
-             +---------------------+---------------------+
-             |                                           |
-    +--------v--------+                        +--------v--------+
-    |   API Gateway    |                        |     Zipkin      |
-    | (Routing Layer)  |                        | (Distributed    |
-    +--------+--------+                        |   Tracing)      |
-             |                                 +-----------------+
-   +---------+----------+
-   |                    |
-+--v--+            +----v----+
-|Student Service |  | School Service |
-+------+----------+  +-------------+
-       |                        |
-       +------ PostgreSQL ------+
-
-```
+![Architecture Diagram](screenshots/diagram.png)
 
 ---
 
-## 📦 Modules
+## 📦 Modules Overview
 
 ### 1. `config-server`
-- Centralise la configuration de tous les services.
-- Stockage local ou distant (ex: Git).
-- Port : `8888`.
+- Centralized configuration management for all microservices.
+- Fetches configuration from a Git-based repository.
 
 ### 2. `discovery-server` (Eureka)
-- Service de découverte (registre les microservices).
-- Port : `8761`.
-- Accès UI : [http://localhost:8761](http://localhost:8761)
+- Acts as a service registry.
+- Enables microservices to discover and communicate with each other.
 
 ### 3. `api-gateway`
-- Point d'entrée unique.
-- Routage intelligent via Eureka.
-- Port : `8080`.
+- Single entry point to the system.
+- Uses **Spring Cloud Gateway** for routing and filtering.
+- Communicates with Eureka for service resolution.
 
 ### 4. `student-service`
-- Service métier pour gérer les étudiants.
-- Port : `8090`.
+- Handles all operations related to students.
+- Communicates with PostgreSQL to manage student data.
 
 ### 5. `school-service`
-- Service métier pour gérer les écoles.
-- Port : `8091`.
+- Manages school-related operations.
+- Uses **OpenFeign** to fetch related student data from `student-service`.
 
 ---
 
-## 🔁 Communication entre microservices
+## 🔁 Inter-Service Communication
 
-- Réalisée avec **OpenFeign**.
-- Exemple : `SchoolService` appelle `StudentService` pour récupérer les étudiants d'une école.
+- Handled via **OpenFeign**, a declarative REST client.
+- Example use case: `school-service` fetches the list of students associated with a specific school from `student-service`.
 
 ---
 
-## ⚙️ Lancement des services
+## 🚀 How to Run the Project
 
-1. **Démarrer `docker-compose`** pour PostgreSQL, PgAdmin et Zipkin :
+### Prerequisites
+- Java 17+
+- Maven
+- Docker & Docker Compose
+
+### Step-by-step Setup
+
+1. **Start Docker containers** for PostgreSQL, PgAdmin, and Zipkin:
    ```bash
    docker-compose up -d
-   ```
 
-2. **Démarrer les services Spring Boot dans cet ordre** :
+2. **Run Spring Boot services in the following order:** :
    - `config-server`
    - `discovery-server`
    - `api-gateway`
    - `school-service`
    - `student-service`
+     
+> Each service will register with Eureka and fetch its configuration from the config server.
 
 ---
 
-## 🐳 Docker Compose
 
-```yaml
-services:
-  postgresql:
-    image: postgres
-    ports:
-      - "5432:5432"
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - "5050:80"
-  zipkin:
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-```
+## 📈 Distributed Tracing with Zipkin
 
-Accès Zipkin : [http://localhost:9411/zipkin/](http://localhost:9411/zipkin/)
+- Zipkin is integrated into each microservice.
+- Helps visualize and trace requests across services.
+![Zipkin](screenshots/zipkin.png)
+
+Access the Zipkin dashboard at:  
+👉 `http://localhost:9411`
 
 ---
 
-## 🔍 Tracing avec Zipkin
+## 🛠️ Tech Stack
 
-Chaque microservice intègre Zipkin grâce aux dépendances suivantes :
-
-```xml
-<dependency>
-  <groupId>io.micrometer</groupId>
-  <artifactId>micrometer-tracing-bridge-brave</artifactId>
-</dependency>
-<dependency>
-  <groupId>io.zipkin.reporter2</groupId>
-  <artifactId>zipkin-reporter-brave</artifactId>
-</dependency>
-```
-
-Et configuration dans `application.yml` :
-
-```yaml
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-```
+| Technology        | Description                                |
+|-------------------|--------------------------------------------|
+| Spring Boot       | Framework for building microservices       |
+| Spring Cloud      | Config, Eureka, Gateway, OpenFeign         |
+| PostgreSQL        | Relational database                        |
+| Docker            | Containerization platform                  |
+| Docker Compose    | Multi-container orchestration              |
+| Zipkin            | Distributed tracing tool                   |
 
 ---
 
-## 🛠 Technologies utilisées
+## 📬 Author
 
-- **Spring Boot**
-- **Spring Cloud (Config, Eureka, Gateway, OpenFeign)**
-- **PostgreSQL**
-- **Docker & Docker Compose**
-- **Zipkin**
-- **Lombok**
-- **Micrometer**
-
----
-
-## 📧 Auteur
-
-- 👩‍💻 Développé par Azza
-- 🚀 [LinkedIn](https://www.linkedin.com/)
-
----
-
-## ✅ TODO (idées d'amélioration)
-
-- [ ] Ajouter Spring Security + JWT.
-- [ ] Déploiement dans le cloud (Heroku, AWS, etc.).
-- [ ] Intégration de Prometheus + Grafana.
-
----
+**Azza Ben Romdhan**  
+💼 Software Engineer  
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/azza-ben-romdhan-668987177/)
