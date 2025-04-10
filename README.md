@@ -72,17 +72,17 @@ Access the Zipkin dashboard at:
 
 ## 🖥 Eureka Service Discovery
 
-Visualisation des microservices enregistrés via le dashboard Eureka :
+Visualization of registered microservices via the Eureka dashboard:
 
 ![Interface Eureka](screenshots/eureka.png)
 
-**Accès** : http://localhost:8761
+**Access** : http://localhost:8761
 
-**Fonctionnalités clés** :
-- Liste des instances enregistrées
-- Statut UP/DOWN en temps réel
-- Métadonnées des services
-- Métriques système (mémoire, uptime)
+**Key Features:** :
+- List of registered instances
+- Real-time UP/DOWN status
+- Service metadata
+- System metrics (memory, uptime)
   
 ## 🛠️ Tech Stack
 
